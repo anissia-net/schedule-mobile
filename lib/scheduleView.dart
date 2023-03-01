@@ -4,11 +4,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class ScheduleView extends StatefulWidget {
   @override
-  _ScheduleViewState createState() => _ScheduleViewState();
+  ScheduleViewState createState() => ScheduleViewState();
 }
 
-class _ScheduleViewState extends State<ScheduleView> {
-  late final WebViewController _controller = WebViewController()
+class ScheduleViewState extends State<ScheduleView> {
+  late final WebViewController controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..loadRequest(Uri.parse('https://anissia.net/schedule/2015'))
     ..setNavigationDelegate(NavigationDelegate(
@@ -20,13 +20,9 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-      ),
-      body: Builder(builder: (BuildContext context) {
-        return WebViewWidget(controller: _controller);
-      }),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
+      child: WebViewWidget(controller: controller),
     );
   }
 }
