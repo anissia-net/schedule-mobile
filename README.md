@@ -7,6 +7,13 @@
 - flutter 및 android 환경 외.
 - 현재 android 환경만 사용중.
 
+- 해야할일
+- flutter 플러그인 설치
+- android 플로그인 활성화
+- 설정에서 android sdk 경로 설정 및 설치
+- 플러터 설치: https://docs.flutter.dev/release/archive?tab=windows
+- 
+
 # 유의사항
 - android
   - android studio 사용시
