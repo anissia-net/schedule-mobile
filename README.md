@@ -4,27 +4,5 @@
 - https://play.google.com/store/apps/details?id=anissia.android.schedule
 
 # 개발환경
-- flutter 및 android 환경 외.
-- 현재 android 환경만 사용중.
-
-- 해야할일
-- flutter 플러그인 설치
-- android 플로그인 활성화
-- 설정에서 android sdk 경로 설정 및 설치
-- 플러터 설치: https://docs.flutter.dev/release/archive?tab=windows
-- 
-
-# 유의사항
-- android
-  - android studio 사용시
-    - 몇 몇 기능을 쓰기 위해선 아래 방법 으로 내부 android studio 를 켜야 한다.
-      - project(오른쪽 클릭) -> flutter -> open android module in android studio
-      - android module studio (이하 **AMS**) 
-    - 배포시 유의사항.  
-      - 배포는 **AMS** 에서만 가능하다.
-      - build -> Generate Signed Bundle / Apk
-      - keystore 정보를 입력 후 빌드된 릴리즈를 google play console 에 배포 해야 한다.
-
-# 기타
-- webview 하나 올린 단순 프로젝트
-- 공개 프로젝트이며 유사한 앱을 만들 때 참고.
+- flutter 제거 및 다시 만들 예정.
+- 오랜만에 유지보수하려니.. 힘듬.
