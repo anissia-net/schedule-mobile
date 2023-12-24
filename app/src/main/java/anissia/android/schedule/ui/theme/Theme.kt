@@ -1,4 +1,4 @@
-package anissia.schedule.android.ui.theme
+package anissia.android.schedule.ui.theme
 
 import android.app.Activity
 import android.os.Build

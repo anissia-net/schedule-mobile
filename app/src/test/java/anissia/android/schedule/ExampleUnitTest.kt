@@ -1,4 +1,4 @@
-package anissia.schedule.android
+package anissia.android.schedule
 
 import org.junit.Test
 
