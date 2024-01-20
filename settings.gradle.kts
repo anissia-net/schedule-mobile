@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "anissia-schedule-android"
+rootProject.name = "Anissia Schedule Android"
 include(":app")
  

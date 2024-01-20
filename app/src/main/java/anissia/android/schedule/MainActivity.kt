@@ -31,6 +31,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         })
+
+        swipeRefreshLayout.setOnRefreshListener {
+            webview.reload()
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 }
 

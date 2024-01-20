@@ -11,8 +11,8 @@ android {
         applicationId = "anissia.android.schedule"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3000
-        versionName = "3.0"
+        versionCode = 3001
+        versionName = "3.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
