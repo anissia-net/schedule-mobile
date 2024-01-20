@@ -6,11 +6,18 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.webkit.*
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 @SuppressLint("SetJavaScriptEnabled")
 class WebViewEx : WebView {
+    val basicUrl = "https://anissia.net/schedule/2015"
+    //val basicUrl = "http://192.168.1.2:5173/schedule/2015"
+
+    var versionName: String = ""
+    var firstLoad: Boolean = true
 
     constructor(context: Context) : super(context) {
         init()
@@ -24,13 +31,38 @@ class WebViewEx : WebView {
         init()
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return when (keyCode) {
+            KeyEvent.KEYCODE_VOLUME_UP -> { textZoom(10, true); true }
+            KeyEvent.KEYCODE_VOLUME_DOWN -> { textZoom(-10, true); true }
+            else -> super.onKeyDown(keyCode, event)
+        }
+    }
+
+    private fun textZoom(by: Int, apply: Boolean): Int {
+        val pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
+        var now = pref.getInt("textZoom", 100)
+        if (by != 0) {
+            now = (now + by).coerceAtLeast(80).coerceAtMost(120)
+            pref.edit().putInt("textZoom", now).apply()
+        }
+        if (apply) {
+            settings.textZoom = now
+            CustomToast.showToast(context, "$now%")
+        }
+        return now
+    }
+
     private fun init() {
+        versionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+
         // 기본 정책 설정
         settings.apply {
             javaScriptEnabled = true
             javaScriptCanOpenWindowsAutomatically = true
             allowFileAccess = true
             domStorageEnabled = true
+            textZoom = textZoom(0, false)
         }
 
         // alert 설정
@@ -47,16 +79,25 @@ class WebViewEx : WebView {
 
         // WebViewClient 설정
         setWebViewClient(object: WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                if (firstLoad) {
+                    evaluateJavascript("localStorage.setItem('app', 'android');", null)
+                    evaluateJavascript("localStorage.setItem('appVersion', '$versionName');", null)
+                    requestFocus()
+                    firstLoad = false
+                }
+                super.onPageFinished(view, url)
+            }
+
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 return request?.url?.let { handleUrl(it) } ?: true
             }
 
             private fun handleUrl(url: Uri): Boolean {
-                val allowedDomain = "https://anissia.net/schedule/2015"
-                if (url.toString().startsWith(allowedDomain)) {
+                val urls = url.toString()
+                if (urls == basicUrl) {
                     return false
                 }
-
                 return openExternalBrowser(url)
             }
 
@@ -66,8 +107,5 @@ class WebViewEx : WebView {
                 return true
             }
         })
-
-        // 로드
-        loadUrl("https://anissia.net/schedule/2015")
     }
 }

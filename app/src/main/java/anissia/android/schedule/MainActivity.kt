@@ -7,7 +7,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : ComponentActivity() {
-
     private val webview: WebViewEx by lazy {
         findViewById<WebViewEx>(R.id.webview)
     }
@@ -21,6 +20,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webview)
 
+        webview.loadUrl(webview.basicUrl)
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (webview.canGoBack()) {
@@ -30,12 +31,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         })
-
-        swipeRefreshLayout.setOnRefreshListener {
-            webview.reload()
-            swipeRefreshLayout.isRefreshing = false
-        }
-
     }
 }
 
