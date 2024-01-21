@@ -65,17 +65,7 @@ class WebViewEx : WebView {
             textZoom = textZoom(0, false)
         }
 
-        // alert 설정
-        webChromeClient = object: WebChromeClient() {
-            override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
-                AlertDialog.Builder(context).create().apply {
-                    setMessage(message)
-                    setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog, which -> dialog.dismiss() }
-                    show()
-                }
-                return false
-            }
-        }
+        webChromeClient = object: WebChromeClient() {}
 
         // WebViewClient 설정
         setWebViewClient(object: WebViewClient() {
